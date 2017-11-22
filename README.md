@@ -1,6 +1,5 @@
 Master segfault
 ==
-
 Ceci est une tentative de mettage en commun de notes de cours.
 Comme vous l'aurez compris, on utilise le Markdown ici, c'est pas la mort à apprendre et ça marche super bien avec git!
 

@@ -124,7 +124,18 @@ R: true
 
 G: MOD(L)
 Q: OLD(L) ^ L = v
-
+We now consider how the simple test-and-set algorithm performs
+using a bus-based write-back cache (the most common case in
+practice). Each test-and-set call goes over the bus, and since all of
+the waiting threads are continually using the bus, all threads, even
+those not waiting for the lock, must wait to use the bus for each
+memory access. Even worse, the test-and-set call invalidates all
+cached copies of the lock, so every spinning thread encounters a
+cache miss almost every time, and has to use the bus to fetch the
+new, but unchanged value. Adding insult to injury, when the thread
+holding the lock tries to release it, it may be delayed waiting to use
+the bus that is monopolized by the spinners. We now understand
+why the TAS lock performs so poorly.
 ## Exclussion mutuelle (Lock)
 
 ```c
